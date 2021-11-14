@@ -6,14 +6,41 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+    @IBOutlet weak var userIDLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var completedLabel: UILabel!
+
+    struct UsersInfo: Codable {
+        var userId: Int
+        var id: Int
+        var title: String
+        var completed: Bool
     }
 
+    @IBAction func requestButtonTapped(_ sender: Any) {
 
+        AF.request("https://jsonplaceholder.typicode.com/todos/1") { urlRequest in }
+        .response{ response in
+
+            guard let data = response.data else { return }
+
+            let jsonObject = try? JSONDecoder.init().decode(UsersInfo.self, from: data)
+            let userID = jsonObject?.userId
+            let id = jsonObject?.id
+            let title = jsonObject?.title
+            let completed = jsonObject?.completed
+
+            self.userIDLabel.text = "userID: \(userID!)"
+            self.idLabel.text = "id: \(id!)"
+            self.titleLabel.text = "title: \(title!)"
+            self.completedLabel.text = "completed: \(completed!)"
+        }
+    }
 }
 
