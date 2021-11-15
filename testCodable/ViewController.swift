@@ -10,7 +10,6 @@ import Alamofire
 
 class ViewController: UIViewController {
 
-
     @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -29,18 +28,17 @@ class ViewController: UIViewController {
         .response{ response in
 
             guard let data = response.data else { return }
-
             let jsonObject = try? JSONDecoder.init().decode(UsersInfo.self, from: data)
-            let userID = jsonObject?.userId
-            let id = jsonObject?.id
-            let title = jsonObject?.title
-            let completed = jsonObject?.completed
 
-            self.userIDLabel.text = "userID: \(userID!)"
-            self.idLabel.text = "id: \(id!)"
-            self.titleLabel.text = "title: \(title!)"
-            self.completedLabel.text = "completed: \(completed!)"
+            guard let userID = jsonObject?.userId else { return }
+            guard let id = jsonObject?.id else { return }
+            guard let title = jsonObject?.title else { return }
+            guard let completed = jsonObject?.completed else { return }
+
+            self.userIDLabel.text = "userID: \(userID)"
+            self.idLabel.text = "id: \(id)"
+            self.titleLabel.text = "title: \(title)"
+            self.completedLabel.text = "completed: \(completed)"
         }
     }
 }
-
