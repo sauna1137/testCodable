@@ -48,7 +48,6 @@
 				558A8E028E8311E8824195A4 /* Pods-testCodable.debug.xcconfig */,
 				37649353770A19576EDAD539 /* Pods-testCodable.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
